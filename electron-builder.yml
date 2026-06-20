@@ -1,0 +1,111 @@
+appId: com.aether.media
+productName: Aether Media
+artifactName: ${productName}-${version}-${os}-${arch}.${ext}
+
+directories:
+  output: release
+  buildResources: build
+
+files:
+  - electron/**/*
+  - renderer/**/*
+  - core/**/*
+  - dist/**/*
+  - public/**/*
+  - index.html
+  - package.json
+  - "!app/package.json"
+  - "!src/**/*"
+  - "!release/**/*"
+
+extraMetadata:
+  main: electron/aether-electron-main.cjs
+
+extraResources:
+  - from: bin
+    to: bin
+    filter:
+      - "ffmpeg.exe"
+      - "ffprobe.exe"
+      - "yt-dlp"
+      - "yt-dlp.exe"
+  - from: ms-playwright
+    to: ms-playwright
+    filter:
+      - "**/*"
+  - from: build-resources/adblock
+    to: build-resources/adblock
+    filter:
+      - "**/*"
+  - from: public/ass
+    to: public/ass
+    filter:
+      - "subtitles-octopus.js"
+      - "subtitles-octopus-worker.js"
+      - "subtitles-octopus-worker.wasm"
+      - "subtitles-octopus-worker-legacy.js"
+  - from: public/fonts
+    to: public/fonts
+    filter:
+      - "arial.ttf"
+      - "Lato-Black.ttf"
+      - "Lato-BlackItalic.ttf"
+      - "Lato-Bold.ttf"
+      - "Lato-BoldItalic.ttf"
+      - "Lato-Italic.ttf"
+      - "Lato-Light.ttf"
+      - "Lato-LightItalic.ttf"
+      - "Lato-Regular.ttf"
+      - "Lato-Thin.ttf"
+      - "Lato-ThinItalic.ttf"
+      - "NotoSans-Black.ttf"
+      - "NotoSans-BlackItalic.ttf"
+      - "NotoSans-Bold.ttf"
+      - "NotoSans-BoldItalic.ttf"
+      - "NotoSans-ExtraBold.ttf"
+      - "NotoSans-ExtraBoldItalic.ttf"
+      - "NotoSans-ExtraLight.ttf"
+      - "NotoSans-ExtraLightItalic.ttf"
+      - "NotoSans-Italic.ttf"
+      - "NotoSansJP-Regular.ttf"
+      - "NotoSans-Light.ttf"
+      - "NotoSans-LightItalic.ttf"
+      - "NotoSans-Medium.ttf"
+      - "NotoSans-MediumItalic.ttf"
+      - "NotoSans-Regular.ttf"
+      - "NotoSans-SemiBold.ttf"
+      - "NotoSans-SemiBoldItalic.ttf"
+      - "NotoSans-Thin.ttf"
+      - "NotoSans-ThinItalic.ttf"
+      - "PoetsenOne-Regular.ttf"
+
+asarUnpack:
+  - "dist/**/*.wasm"
+  - "dist/ass/*.wasm"
+  - "dist/ass/*.js"
+  - "public/ass/*.wasm"
+  - "public/ass/*.js"
+  - "public/fonts/*.ttf"
+  - "public/fonts/*.otf"
+  - "public/fonts/*.ttc"
+  - "public/fonts/*.otc"
+  - "node_modules/youtube-dl-exec/bin/*"
+win:
+  icon: build/icon.ico
+  executableName: Aether Media
+  target:
+    - target: nsis
+      arch:
+        - x64
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: Aether Media
+  uninstallDisplayName: Aether Media
+  artifactName: ${productName}-Setup-${version}-${arch}.${ext}

@@ -1,0 +1,172 @@
+/* Custom Electron PiP Mode */
+.main-wrapper.custom-pip-mode .main-header,
+.main-wrapper.custom-pip-mode .video-controls,
+.main-wrapper.custom-pip-mode .glass-panel,
+.main-wrapper.custom-pip-mode .settings-menu,
+.main-wrapper.custom-pip-mode .download-manager-panel,
+.main-wrapper.custom-pip-mode .tv-panel,
+.main-wrapper.custom-pip-mode .subtitle-overlay,
+.main-wrapper.custom-pip-mode .libassjs-canvas-parent {
+  display: none !important;
+}
+
+@keyframes popInPip {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.main-wrapper.custom-pip-mode {
+  justify-content: stretch !important;
+  align-items: stretch !important;
+  background: #000 !important;
+  overflow: hidden !important;
+  animation: popInPip 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.main-wrapper.custom-pip-mode .video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 99999 !important;
+  border-radius: 0 !important;
+  cursor: default;
+}
+
+.main-wrapper.custom-pip-mode video {
+  border-radius: 0 !important;
+  object-fit: contain;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Custom PiP UI Overlay */
+.custom-pip-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.main-wrapper.custom-pip-mode .video-container:hover .custom-pip-overlay {
+  opacity: 1;
+}
+
+.custom-pip-top-bar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  left: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  /* Make the top bar draggable in electron */
+  -webkit-app-region: drag;
+}
+
+.custom-pip-top-bar button {
+  -webkit-app-region: no-drag;
+  background: rgba(20, 20, 20, 0.58);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.custom-pip-top-bar button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.custom-pip-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.custom-pip-btn {
+  background: transparent;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  border: none;
+  color: white;
+}
+
+.custom-pip-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
+.custom-pip-btn:active {
+  transform: scale(0.95);
+}
+
+.custom-pip-btn.large {
+  width: 51px;
+  height: 51px;
+  background: rgba(20, 20, 20, 0.58);
+  border-radius: 50%;
+}
+
+.custom-pip-btn.large:hover {
+  transform: scale(1);
+  background: rgba(60, 60, 60, 0.6);
+}
+
+.custom-pip-btn.medium {
+  width: 48px;
+  height: 48px;
+}
+
+.custom-pip-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.custom-pip-time {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: left;
+  font-family: sans-serif;
+  margin-bottom: 4px;
+}
+
+.custom-pip-progress-bg {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.custom-pip-progress-fill {
+  height: 100%;
+  background: white;
+  border-radius: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
